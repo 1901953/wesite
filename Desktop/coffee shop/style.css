@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+:root{
+    --main-color:#d3ad7f;
+    --black:#13131a;
+    --bg:#010103;
+    --border:.1rem solid rgba(255,255,255,.3);
+    /* 1rem = 16px */
+}
+
+*{
+    font-family: 'Roboto', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box; 
+    outline: none; border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+/* ::-webkit-scrollbar   整个滚动条 */
+html::-webkit-scrollbar 
+{
+    width: .8rem;
+}
+
+/* ::-webkit-scrollbar-track 滚动条的轨迹（进度条），其中白色条的顶部有一个灰色条。 */
+/* background: transparent 意思是背景透明 */
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+/* ::-webkit-scrollbar-thumb  可拖动的滚动手柄 */
+/* border-radius是 *外边框边缘的角进行倒圆角*/
+html::-webkit-scrollbar-thumb{
+    background: #fff;
+    border-radius: 5rem;
+}
+
+
+/* .btn是定義統一的btn要有的特徵 */
+/* padding:就是以要padding的文字 為中心展開的領域，padding可以用作製作個體領域的背景顔色 */
+body{
+    background: var(--bg);
+}
+
+section{
+    padding:2rem 7%;
+}
+
+.heading{
+    text-align: center;
+    color:#fff;
+    text-transform: uppercase;
+    padding-bottom: 3.5rem;
+    font-size: 4rem;
+}
+
+.heading span{
+    color:var(--main-color);
+    text-transform: uppercase;
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding:.9rem 3rem;
+    font-size: 1.7rem;
+    color:#fff;
+    background: var(--main-color);
+    cursor: pointer;
+}
+
+/* letter-spacing的作用就是 增加文字間距，
+在這裏通過hover 所產生的效果就是 btn會伸張 */
+.btn:hover{
+    letter-spacing: .2rem;
+}
+
+
+
+
+/* justify-content: space-between;是 在flex的情況下，均匀分配空間 */
+/* z-index 是仅适用于定位元素,
+用于定义重叠 HTML 元素的顺序。索引较高的元素将放置在索引较低的元素之上。*/
+.header{
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:1.5rem 7%;
+    border-bottom: var(--border);
+    position: fixed;
+    top:0; left: 0; right: 0;
+    z-index: 1000;
+}
+
+.header .logo img{
+    height: 6rem;
+}
+
+.header .navbar a{
+    margin:0 1rem;
+    font-size: 1.6rem;
+    color:#fff;
+}
+
+.header .navbar a:hover{
+    color:var(--main-color);
+    border-bottom: .1rem solid var(--main-color);
+    padding-bottom: .5rem;
+}
+
+.header .icons div{
+    color:#fff;
+    cursor: pointer;
+    font-size: 2.5rem;
+    margin-left: 2rem;
+}
+
+.header .icons div:hover{
+    color:var(--main-color);
+}
+
+#menu-btn{
+    display: none;   
+}
+
+
+/* top , right 等等： 這些都是類似margin的，以top和right為例子，如果你輸入的數字
+越大，它們就會離top（頂部）和right（右邊）越遠 */
+
+/*  transform: scaleY(0);
+    transform-origin: top; 
+    
+    待查辦？？？
+    */
+
+.header .search-form{
+    position: absolute;
+    top:115%; right: 7%;
+    background: #fff;
+    width: 50rem; 
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.header .search-form.active{
+    transform: scaleY(1);
+}
+
+.header .search-form input{
+    height: 100%;
+    width: 100%;
+    font-size: 1.6rem;
+    color:var(--black);
+    padding:1rem;
+    text-transform: none;
+}
+
+.header .search-form label{
+    cursor: pointer;
+    font-size: 2.2rem;
+    margin-right: 1.5rem;
+    color:var(--black);
+}
+
+.header .search-form label:hover{
+    color:var(--main-color);
+}
+
+
+/* top , right 等等： 這些都是類似margin的，以top和right為例子，如果你輸入的數字
+越大，它們就會離top（頂部）和right（右邊）越遠 */
+
+/* position:absolute：相对于最近定位的祖先定位 */
+
+.header .cart-items-container{
+    position: absolute;
+    top:100%; right: -100%;
+    height: calc(100vh - 9.5rem);
+    width: 35rem;
+    background: #fff;
+    padding:0 1.5rem;
+}
+
+.header .cart-items-container.active{
+    right: 0;
+}
+
+/* position:relative: 使用“相对位置”设置元素的顶部、右侧、底部和左侧属性;属性将使其从正常位置进行调整
+,其他对象或元素不会填充间隙 */
+
+/* gap: 數字越小，出現的陣列網格 越大， 相反，數字越大，出現的陣列網格，越小，間距越大 */
+.header .cart-items-container .cart-item{
+    position: relative;
+    margin:2rem 0;
+    display: flex;
+    align-items: center;
+    gap:1.5rem;
+}
+/* fa-times是一個交叉來的 */
+.header .cart-items-container .cart-item .fa-times{
+    position: absolute;
+    top:1rem; right: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--black);
+}
+
+.header .cart-items-container .cart-item .fa-times:hover{
+    color:var(--main-color);
+}
+
+.header .cart-items-container .cart-item img{
+    height: 7rem;
+}
+
+.header .cart-items-container .cart-item .content h3{
+    font-size: 2rem;
+    color:var(--black);
+    padding-bottom: .5rem;
+}
+
+.header .cart-items-container .cart-item .content .price{
+    font-size: 1.5rem;
+    color:var(--main-color);
+}
+
+
+/* 這裏的btn通過 width的功能 讓背景顔色覆蓋 橫向（寬度），以至於 可以只單純見到文字間距移動
+而   背景顔色不用移動！！ */
+.header .cart-items-container .btn{
+    width: 100%;
+    text-align: center;
+}
+
+/* no-repeat， 意思是讓背景圖 不要存在重複出現在同一個頁面 */
+/* background-size: cover;意思是 讓背景覆蓋整個網頁畫面 */
+.home{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background:url(../images/home-img.jpeg) no-repeat;
+    background-size: cover;
+
+}
+
+.home .content{
+    max-width: 60rem;
+}
+
+/* content裏面包含的h3  */
+.home .content h3{
+    font-size: 6rem;
+    text-transform: uppercase;
+    color:#fff;
+}
+
+/* font-weight: lighter; 字体粗细属性 */
+/* line-height: 1rem;通常用于设置文本行之间的距离 */
+.home .content p{
+    font-size: 2rem;
+    font-weight: lighter;
+    line-height: 3rem;
+    padding: 1rem 0;
+    letter-spacing: .2rem;
+    color:#eee;
+}
+
+/* background: var(--black); 在這裏作用是在原有的頁面底色上，再加一層屬於該區域特有的顔色。 */
+/* wrap:此屬性用於將彈性項目分成多行。 它可以根據彈性項目的寬度將彈性項目換行成多行。 */
+.about .row{
+    display:flex;
+    align-items: center;
+    background: var(--black);
+    flex-wrap:wrap;
+}
+
+
+/* 不明白 flex在這裏有什麽作用！   暫查！！！ */
+.about .row .image{
+    flex:1 1 45rem;
+}
+
+.about .row .image img{
+    width:100%;
+}
+
+.about .row .content{
+    flex: 1 1 45rem;
+    padding: 2rem;
+}
+
+.about .row .content h3{
+    font-size: 3rem;
+    color:#fff;
+}
+
+
+@media (max-width:991px){
+    html{
+        font-size: 55%;
+    }
+
+    .header{
+        padding:1.5rem 2rem;
+    }
+
+    section{
+        padding:2rem;
+    }
+
+}
+
+@media (max-width:768px){
+
+        #menu-btn{
+            display: inline-block;   
+        }
+
+        /* 存在疑惑點：
+            （1）分不清什麽時候使用absolute
+            （2）不知道爲什麽background-color是白色，但是最後變成 文字是白色
+            （3）不知道background:30rem 有什麽用 */
+        .header .navbar{
+            position: absolute;
+            top:100%; right: -100%;
+            background: #fff;
+            width: 30rem;
+            height: calc(100vh - 9.5rem);
+        }
+
+        .header .navbar.active{
+            right:0;
+        }
+
+
+        /* display:block 的作用是 block 表示元素显示为块，
+        就像段落和标题一直以来一样。块的上方和下方都有一些空格，
+        并且不允许旁边有HTML元素 */
+        .header .navbar a{
+            color:var(--black);
+            display: block;
+            margin:1.5rem;
+            padding:.5rem;
+            font-size: 2rem;
+        }
+
+        /* width:90%; 在這裏是用於顯示search-form的寬度 */
+        .header .search-form{
+            width: 90%;
+            right: 2rem;
+        }
+
+        /* justify-content: center;意思是用在flex的情況之下 */
+        .home{
+            background-position: left;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .home .content h3{
+            font-size: 4.5rem;   
+        }
+
+        .home .content p{
+            font-size: 1.5rem;   
+        }
+
+    }
+
+    @media (max-width:450px){
+        html{
+            font-size: 50%;
+        }
+    
+        .header{
+            padding:1.5rem 2rem;
+        }
+    }
+
+
