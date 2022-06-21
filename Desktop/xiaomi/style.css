@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
+
+
+*{
+    font-family: 'Nunito Sans', sans-serif;
+    border: 0; outline: 0;
+    margin: 0; padding: 0;
+    text-decoration: none;
+    text-transform: none;
+}
+
+:root{
+    --blue:#2980b9;
+    --red:tomato;
+    --orange:orange;
+    --black:#333;
+    --white:#fff;
+    --bg-color:#eee;
+    --dark-bg:rgba(0,0,0,.7);
+    --box-shadow:0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    --border:.1rem solid #999;
+}
+
+body{
+    width:100%;
+    align-items: center;
+
+}
+
+.total_price span{
+    text-decoration: none;
+    color:rgb(68, 64, 64);
+}
+
+
+.total_price a:hover span{
+    color:rgb(0, 0, 0);
+}
+
+/* object-fit:content 的作用 讓圖片或者視頻的 寬高適應 頁面的容器 */
+.card-img-top{
+    width:100%;
+    height:200px;
+    object-fit: contain;
+}
+
+.smbar_image{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    width:50px;
+    height:40px;
+    object-fit: contain;
+}
+
+.container{
+    padding:2rem;
+    min-width: 1200px;
+}
+
+.container h3{
+    text-align: center;
+    background-color: #333;
+    padding: 1.2rem;
+    border: var(--border);
+    color: #fff;
+    letter-spacing: .5;
+}
+
+
+.container-form{
+    padding-top:2.5rem;
+}
