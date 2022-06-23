@@ -21,10 +21,12 @@
     --border:.1rem solid #999;
 }
 
+
+
 body{
     width:100%;
     align-items: center;
-
+    z-index: 1000;
 }
 
 .total_price span{
@@ -56,6 +58,7 @@ body{
 .container{
     padding:2rem;
     min-width: 1200px;
+    z-index:1000;
 }
 
 .container h3{
@@ -70,4 +73,30 @@ body{
 
 .container-form{
     padding-top:2.5rem;
+}
+
+
+.edit-container{
+    position: fixed;
+    top:0; left:0;
+    z-index: 1100;
+    background-color: var(--bg-color);
+    padding:5rem;
+    display: none;
+    align-items: center; 
+
+    /* justify-content :意思即是將圖片等内容 放在瀏覽器中間，跟 控制文字的text-align一樣用法*/
+
+    justify-content: center;
+    width:100%;
+    min-height: 100vh;
+
+}
+
+.error{
+    background: #f2dede;
+    color:#A94442;
+    padding: 10px;
+    width:95%;
+    border-radius: 5px;
 }

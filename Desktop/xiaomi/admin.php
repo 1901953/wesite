@@ -1,6 +1,6 @@
 <?php
     include 'connect_db.php';
-
+// submit products
     if(isset($_POST['submit_product'])){
         $p_name = $_POST['p_name'];
         $p_price = $_POST['p_price'];
@@ -20,6 +20,58 @@
             $message[] = "Product had already been add";
         }
     };
+
+
+// delete products
+    if(isset($_GET['delete'])){
+        $delete_id = $_GET['delete'];
+        $delete_query = mysqli_query($conn, "DELETE FROM `products` WHERE `id` = $delete_id");
+
+        if($delete_query){
+            header("location:admin.php");
+            $message[] = "Product successfully delete";
+        }else{
+            header("location:admin.php");
+            $message[] = "Product already delete";
+        };
+    };
+
+    
+
+
+
+
+
+
+    if(isset($_POST['update_product'])){
+        $update_p_id = $_POST['update_p_id'];
+        $update_p_name = $_POST['update_p_name'];
+        $update_p_price = $_POST['update_p_price'];
+        $update_p_image= $_FILES['update_p_image']['name'];
+        $update_p_image_tmp_name= $_FILES['update_p_image']['tmp_name'];
+        $update_p_image_folder= 'upload_img/'.$update_p_image;
+    
+        $update_query=mysqli_query($conn,"UPDATE `products` SET name = '$update_p_name', 
+        price = '$update_p_price', image = '$update_p_image'  WHERE id = '$update_p_id' ");
+    
+        if($update_query){
+            header("location:admin.php");
+            move_uploaded_file($update_p_image_tmp_name,$update_p_image_folder);
+            $message[]='Product update successfully';
+        }else{
+            header("location:admin.php");
+            $message[]='Product update failed';
+        }
+    
+    
+    }
+
+
+
+
+
+
+
 
 ?>
 
@@ -50,10 +102,10 @@
 </head>
 <body>
 <?php
-$message=[];
-    if($message){
+
+    if(isset($message)){
         foreach($message as $message){
-            echo  '<div class="message">'.$message.'</div>';
+            echo  '<div class="message">'.$message.' <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i>  </div>';
         }
     }
 ?>
@@ -88,13 +140,14 @@ $message=[];
 
 
     <section class="container-form">
-        <table class="table table-light table-hover">
+        <table class="table  table-striped table-hover">
             <thead>
                     <tr>
                     <th scope="col"></th>
                     <th scope="col">Product Image</th>
                     <th scope="col">Product name</th>
                     <th scope="col">Product Price</th>
+                    <th class="text-center">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Action</th>
                     </tr>
             </thead>
 
@@ -115,27 +168,90 @@ $message=[];
                     <td><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
                     <td><?php echo $row['name'];?></td>
                     <td>$<?php echo $row['price'];?>/-</td>
+                    <td><a href="admin.php?edit=<?php echo $row['id'] ;?>" class="btn btn-primary ms-0" onclick="return confirm('Are your sure you want to Update this?');">Update</a></td>
+                    <td><a href="admin.php?delete=<?php echo $row['id'] ;?>" class="btn btn-danger ms-0" onclick="return confirm('Are your sure you want to Delete this?')">Delete</a></td>
                 </tr>
-
-
-
-
-
-
-
-
-
-
-
-
             <?php
                     };
                 };
             ?>
+
             </tbody>
 
         </table>
     </section>
+
+
+
+<section class="edit-container">
+        <?php
+            if(isset($_GET['edit'])){
+                $edit_id = $_GET['edit'];
+                $edit_query = mysqli_query($conn, "SELECT * FROM `products` WHERE id = $edit_id");
+            
+
+            if(mysqli_num_rows($edit_query) > 0){
+                while($fetch_edit = mysqli_fetch_assoc($edit_query)){
+            
+        ?>
+
+        <form method="post" action="" enctype="multipart/form-data">
+            <h3>Update Product</h3>
+
+            <img src="uploaded_img/<?php echo $fetch_data['image'] ;?>">
+
+            <input type="hidden" name="update_p_id" value="<?php echo $fetch_edit['id']; ?>">
+
+            <div class="mb-3">
+                <label  class="form-label">Product Name</label>
+                <input type="text" name="update_p_name" value="<?php echo $fetch_edit['name'];?>"  placeholder="Enter the product name" class="form-control" required>
+            </div>
+
+
+            <div class="mb-3">
+                <label  class="form-label">Product Price</label>
+                <input type="number" name="update_p_price" min="0" value="<?php echo $fetch_edit['price'];?>" placeholder="Enter the product price" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label  class="form-label">Product Image</label>
+                <input type="file" name="update_p_image" accept="image/png, image/jpg, image/jpeg"  class="form-control" required>
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" name="update_product" value="Update" class="btn btn-primary">
+            </div>
+
+            
+            <div class="d-grid mt-3">
+                <input type="reset" id="close-edit" value="Cancel" class="btn btn-secondary">
+            </div>
+
+        </form>
+
+        <?php
+                    };
+                };
+                echo "<script> document.querySelector('.edit-container').style.display = 'flex'; </script>";
+            };
+        ?>
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
 
@@ -150,5 +266,6 @@ $message=[];
 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
 crossorigin="anonymous"></script>
 
+<script src="script.js"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@
 </head>
 <body>
 <!-- navbar -->
-<div class="container-fluid p-0">
+<div class="container-fluid p-0 sticky-top">
 
 <!-- first child -->
     <nav class="navbar navbar-expand-lg navbar-light bg-info">
@@ -80,7 +80,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="login.php">Login</a>
             </li>
 
         </ul>

@@ -1,7 +1,4 @@
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +27,7 @@
 ?>
 
     <!-- third child -->
-    <div class="bg-light">
+    <div class="bg-light mt-3">
         <h3 class="text-center">Hidden Store</h3>
         <p class="text-center">Communications is at the heart of e-commerce and community</p>
     </div>
@@ -46,6 +43,7 @@
         <div class="col-md-8">
         <!-- products -->
             <div class="row">
+
                 <div class="col-md-4 mb-2">
 
                     <div class="card">
