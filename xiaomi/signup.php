@@ -8,9 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // something was poseted
     $user_name = $_POST['user_name'];
     $user_password = $_POST['user_password'];
+    $user_email = $_POST['user_email'];
 
     // 1.未解決問題，就是未能 echo 提醒用戶 不能注冊相同的user_name!!!!
-    if (!empty($user_name) && !empty($user_password) && !is_numeric($user_name)) {
+    if (!empty($user_name) && !empty($user_password) && !empty($user_email) && !is_numeric($user_name)) {
 
         $account_query = mysqli_query($conn, "SELECT * FROM `users`");
         if (mysqli_num_rows($account_query) > 0) {
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 // save database
                 $user_id = random_num(20);
 
-                $query = mysqli_query($conn, "INSERT INTO `users`(user_id, user_name, password) VALUES('$user_id','$user_name', '$user_password')");
+                $query = mysqli_query($conn, "INSERT INTO `users`(user_id, user_name, password, email) VALUES('$user_id','$user_name', '$user_password', '$user_email' )");
 
                 header("Location:login.php");
             }
@@ -86,7 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <input type="password" class="form-control border border-4" placeholder="Please, enter your password" name="user_password">
                     </div>
 
-
+                    <div class="mb-3 shadow-sm p-3 mb-5 bg-body rounded">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control border border-4" placeholder="Please, enter your email" name="user_email">
+                    </div>
 
 
 

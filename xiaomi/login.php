@@ -8,9 +8,10 @@
     // something was poseted
     $user_name = $_POST['user_name'];
     $user_password = $_POST['user_password'];
+    $user_email = $_POST['user_email'];
 
 
-    if (!empty($user_name) && !empty($user_password) && !is_numeric($user_name)) {
+    if (!empty($user_name) && !empty($user_password) && !empty($user_email) && !is_numeric($user_name)) {
       // read database
 
       $result = mysqli_query($conn, "SELECT * FROM `users` WHERE user_name = '$user_name'limit 1 ");
@@ -20,16 +21,16 @@
 
           $user_data = mysqli_fetch_assoc($result);
 
-          if ($user_data['password'] == $user_password) {
+          if ($user_data['password'] == $user_password && $user_data['user_name'] == $user_name && $user_data['email'] == $user_email) {
             $_SESSION['user_id'] = $user_data['user_id'];
             header("Location:index.php");
             die;
           }
         }
       }
-      echo '<div>User Name or Password is not correct! </div>';
+      echo '<div>User Name or Password is not correct, even though is email not correct! </div>';
     } else {
-      echo '<div>User Name or Password is not correct! </div>';
+      echo '<div>User Name or Password is not correct, even though is email not correct! </div>';
     };
   };
   ?>
@@ -83,6 +84,12 @@
            <div class="mb-3">
              <label class="form-label">Password</label>
              <input type="password" class="form-control" placeholder="Please, enter your password" name="user_password" required>
+           </div>
+
+
+           <div class="mb-3">
+             <label class="form-label">Email</label>
+             <input type="email" class="form-control " placeholder="Please, enter your email" name="user_email">
            </div>
 
 
