@@ -6,6 +6,29 @@ include 'functions.php';
 
 $user_data = check_login($conn);
 
+
+if (isset($_POST['add_to_cart'])) {
+    $product_id = $_POST['product_id'];
+    $product_name = $_POST['product_name'];
+    $product_price = $_POST['product_price'];
+    $product_image = $_POST['product_image'];
+    $product_quantity = 1;
+
+    // $cart_query 的作用就是鎖定product的id 要將哪個 產品 加入  購物車(cart)
+    $cart_query = mysqli_query($conn, "SELECT * FROM `cart` WHERE id = '$product_id' ");
+
+
+
+
+    if (mysqli_num_rows($cart_query) > 0) {
+        echo "The product already added to the cart";
+    } else {
+        $insert_query = mysqli_query($conn, "INSERT INTO `cart`(id, name, price, image, quantity) VALUES('$product_id','$product_name', '$product_price', '$product_image', '$product_quantity')");
+        echo "The product successfully add to the cart";
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,9 +51,11 @@ $user_data = check_login($conn);
 </head>
 
 <body>
+
     <?php
     @include 'header.php';
     ?>
+
 
     Hello <?php echo $user_data['user_name']; ?>
 
@@ -44,9 +69,12 @@ $user_data = check_login($conn);
     <!-- col md-10 的意思是 中型設備-屏幕寬度為768px , md-10意思是在中型設備裏面 這個内容占了10個空間，總共為12個空間-->
     <div class="row p-0">
 
+
         <div class="col-md-1">
             <a href="admin.php" class="btn btn-outline-warning">Admin Panel</a>
         </div>
+
+
 
 
         <div class="col-md-8">
@@ -59,22 +87,33 @@ $user_data = check_login($conn);
 
                     $i = 1;
                     while ($i < 10) {
-                        $product_show = mysqli_fetch_assoc($product_query);
+                        $fetch_product = mysqli_fetch_assoc(
+                            $product_query
+                        );
                         $i++;
                 ?>
 
                         <div class="col-md-4 mb-2">
+                            <form action="" method="post">
+                                <div class="card">
+                                    <img src="uploaded_img/<?php echo  $fetch_product['image']; ?>" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><?php echo $fetch_product['name']; ?></h5>
+                                        <p class="card-text text-center">$<?php echo $fetch_product['price']; ?>/-</p>
+                                        <input type="hidden" name="product_id" value="<?php echo $fetch_product['id']; ?>">
+                                        <input type="hidden" name="product_name" value="<?php echo $fetch_product['name']; ?>">
+                                        <input type="hidden" name="product_price" value="<?php echo $fetch_product['price']; ?>">
+                                        <input type="hidden" name="product_image" value="<?php echo $fetch_product['image']; ?>">
 
-                            <div class="card">
-                                <img src="uploaded_img/<?php echo  $product_show['image']; ?>" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center"><?php echo $product_show['name']; ?></h5>
-                                    <p class="card-text text-center">$<?php echo $product_show['price']; ?>/-</p>
-                                    &nbsp; &nbsp;
-                                    <a href="#" class="btn btn-primary me-5">Buy now</a>
-                                    <a href="#" class="btn btn-secondary ms-5">View More</a>
+
+
+                                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                                        <input type="submit" value="Buy now" name="add_to_cart" class="btn btn-primary me-5">
+                                        <a href="#" class="btn btn-secondary ms-5">View More</a>
+                                    </div>
+
                                 </div>
-                            </div>
+                            </form>
 
                         </div>
 

@@ -10,7 +10,6 @@
     $user_password = $_POST['user_password'];
     $user_email = $_POST['user_email'];
 
-
     if (!empty($user_name) && !empty($user_password) && !empty($user_email) && !is_numeric($user_name)) {
       // read database
 
@@ -23,6 +22,8 @@
 
           if ($user_data['password'] == $user_password && $user_data['user_name'] == $user_name && $user_data['email'] == $user_email) {
             $_SESSION['user_id'] = $user_data['user_id'];
+            $_SESSION['id'] = $user_data['id'];
+            $_SESSION['rank'] = $user_data['rank'];
             header("Location:index.php");
             die;
           }
@@ -78,27 +79,27 @@
 
            <div class="mb-3">
              <label class="form-label">User Name</label>
-             <input class="form-control" type="text" placeholder="Please, enter your user name" name="user_name" required>
+             <input class="form-control" type="text" placeholder="Please, enter your user name" name="user_name" required style="padding:0.8rem">
            </div>
 
            <div class="mb-3">
              <label class="form-label">Password</label>
-             <input type="password" class="form-control" placeholder="Please, enter your password" name="user_password" required>
+             <input type="password" class="form-control" placeholder="Please, enter your password" name="user_password" required style="padding:0.8rem">
            </div>
 
 
            <div class="mb-3">
              <label class="form-label">Email</label>
-             <input type="email" class="form-control " placeholder="Please, enter your email" name="user_email">
+             <input type="email" class="form-control " placeholder="Please, enter your email" name="user_email" required style="padding:0.8rem">
            </div>
 
 
            <div class="mb-3 pt-3 text-center">
-             <input type="submit" class="form-control btn btn-outline-primary" name="submit" value="Login" required>
+             <input type="submit" class="form-control btn btn-outline-primary" name="submit" value="Login" required style="padding:0.8rem">
            </div>
 
            <div class="mb-3 pt-3 text-center">
-             <a href="signup.php" id="button" class="btn btn-outline-info" style="width:100%">Sign up</a>
+             <a href="signup.php" id="button" class="btn btn-outline-info" style="width:100%; padding:0.8rem">Sign up</a>
            </div>
 
          </form>

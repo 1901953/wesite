@@ -43,26 +43,35 @@ include 'connect_db.php';
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
+                            <a class="nav-link" href="index.php">Products</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Register</a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                         </li>
 
                         <!-- php -->
+                        <?php
+                        $sum = 0;
+                        $cart_quantity = mysqli_query($conn, "SELECT * FROM `cart`");
+                        if (mysqli_num_rows($cart_quantity) > 0) {
+                            while ($cart_query = mysqli_fetch_assoc($cart_quantity)) {
+                                $num = 0;
+                                $num = $num + $cart_query['quantity'];
+
+                                $sum = $sum + $num;
+                            }
+                        }
+
+                        ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i> <sup>1</sup></a>
+                            <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php echo $sum; ?></sup></a>
                         </li>
 
-
                         <!-- php -->
-                        <li class="total_price">
-                            <a href="#"><span>Total Price: $100/-</span></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="checkout.php">Checkouts</a>
                         </li>
 
 
